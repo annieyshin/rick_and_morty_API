@@ -14,10 +14,16 @@ $(document).ready(function() {
     let promise = rick.getCharacters({name: characterName, status: characterStatus, gender: characterGender});
     promise.then(function(response) {
       let body = JSON.parse(response);
-      $("#character").text(body.results[0].name);
-      $('#gender').text(body.results[0].gender);
-      $('#status').text(body.results[0].status);
-
+      body.results.forEach(function(character) {
+        $('#results').append(
+        `<div class="card">
+          <h1>${character.name}</h1>
+          <h2> Gender: ${character.gender}</h2>
+          <h2> Status: ${character.status}</h2>
+          <img src="${character.image}" alt="${character.name} image">
+        </div>`
+        );
+      });
     });
   });
 });
